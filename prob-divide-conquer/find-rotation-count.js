@@ -1,5 +1,14 @@
-function findRotationCount() {
-  
+
+
+function findRotationCount(arr, num) {
+
+    
+
+
+
+
+
 }
 
-module.exports = findRotationCount
+module.exports = findRotationCount;
+
