@@ -17,29 +17,26 @@ function findFloor(arr, x) {
     let left = 0;
     let right = arr.length - 1;
     let middle;
-    console.log(arr, "val=", x);
     while (left <= right) {
         middle = Math.floor((left+right)/2);
-        console.log("left:", left, "right:", right, "middle:", middle);
-        if (arr[middle] <= x) {
-              console.log("result", arr[middle]);  
+        if (arr[middle] === x) {
               return arr[middle];   
             }
         if (arr[middle] < x) {
             left = middle + 1;
+            // if max value (arr[right]) in a new subarray <= x then return it
             if (arr[right] <= x) {
-                console.log("right result", arr[right]);
                 return arr[right];
             }
         } else {
             right = middle - 1;
-        }        
+        } 
+    }
+    // in case if (right < left) and arr[right] is our result
+    if ((right >= 0) && (arr[right] <= x)) {
+       return arr[right];  
     }
     return -1;
 }
 
 module.exports = findFloor;
-
-// findFloor([1,2,8,10,10,12,19], 9); // 8
-findFloor([1,2,8,10,10,12,19], 20); // 19
-// findFloor([1,2,8,10,10,12,19], 0); // -1
