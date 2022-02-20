@@ -46,23 +46,48 @@ class LinkedList {
   /** pop(): return & remove last item. */
 
   pop() {
-
+    try {
+      if (this.length === 0) throw Error;
+      let removedNode = this.tail;
+      if (this.length > 1) {
+        let current = this.head;
+        while (current !== null) {
+          if (current.next.next === null) {
+            current.next = null;
+            this.tail = current;
+          }
+          current = current.next;
+        }
+      } else {
+        this.head = null;
+        this.tail = null;
+      }
+      this.length--;
+      return removedNode.val;
+    } catch (e) {
+      console.log("The list is empty!", e);
+    }
 
   }
 
   /** shift(): return & remove first item. */
 
   shift() {
-    if (this.length === 0) return undefined;
-    let removedNode = this.head;
-    if (this.length > 1) {
-      this.head = this.head.next;
-    } else {
-      this.head = null;
-      this.tail = null;
+    try {
+      if (this.length === 0) throw Error;
+      let removedNode = this.head;
+      if (this.length > 1) {
+        this.head = this.head.next;
+      } else {
+        this.head = null;
+        this.tail = null;
+      }
+      this.length--;
+      return removedNode.val;
+    } catch (e) {
+      console.log("The list is empty!", e);
     }
-    this.length--;
-    return removedNode.val;
+
   }
 
   /** getAt(idx): get val at idx. */
@@ -109,14 +134,16 @@ class LinkedList {
 
 module.exports = LinkedList;
 
-// let ll = new LinkedList(["apple", "berry", "cherry"]);
+let ll = new LinkedList(["apple", "berry", "cherry"]);
+ll.print();
+// let lst = new LinkedList([5, 10]);
+// let lst = new LinkedList();
+let removed = ll.pop();
+console.log(removed);
+// lst.print(); //5 
+// console.log("tail:",lst.tail.val, "head", lst.head.val, "length",lst.length); 
 
-let lst = new LinkedList([5, 10]);
-
-lst.print(); //5 
-console.log("tail:",lst.tail.val, "head", lst.head.val, "length",lst.length); 
-
-lst.print(); //10
+// lst.print(); //10
 
 
-// ll.print();
+ll.print();
