@@ -208,17 +208,16 @@ class LinkedList {
   /** average(): return an average of all values in the list */
 
   average() {
+    // returns 0 if a list is empty
+    if (this.length === 0) return 0;
+
     let current = this.head;
     let sum = 0;
-    let average;
     while (current !== null) {
       sum += current.val;
-      console.log("Current Sum:", sum);
       current = current.next;
     }
-    average = sum/this.length;
-    return average
-   
+    return sum/this.length;
   }
 
   /** print(): traverse & console.log each item. */
@@ -229,7 +228,7 @@ class LinkedList {
       console.log(current.val);
       current = current.next;
     }
-    console.log("length:", this.length);
+    console.log("list length:", this.length);
   }
 }
 
