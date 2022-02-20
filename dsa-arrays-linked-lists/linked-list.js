@@ -26,6 +26,7 @@ class LinkedList {
     if (this.tail !== null) this.tail.next = newNode;
     this.tail = newNode;
     this.length++;
+    return this.length;
   }
 
   /** unshift(val): add new value to start of list. */
@@ -39,18 +40,29 @@ class LinkedList {
     }
     this.head = newNode;
     this.length++;
+    return this.length;
   }
 
   /** pop(): return & remove last item. */
 
   pop() {
 
+
   }
 
   /** shift(): return & remove first item. */
 
   shift() {
-
+    if (this.length === 0) return undefined;
+    let removedNode = this.head;
+    if (this.length > 1) {
+      this.head = this.head.next;
+    } else {
+      this.head = null;
+      this.tail = null;
+    }
+    this.length--;
+    return removedNode.val;
   }
 
   /** getAt(idx): get val at idx. */
@@ -91,20 +103,20 @@ class LinkedList {
       console.log(current.val);
       current = current.next;
     }
+    console.log("length:", this.length);
   }
 }
 
 module.exports = LinkedList;
 
-let ll = new LinkedList();
+// let ll = new LinkedList(["apple", "berry", "cherry"]);
 
-ll.push("apple");
-ll.push("berry");
-ll.push("cherry");
-ll.unshift("banana");
-ll.unshift("orange");
-ll.unshift();
-ll.unshift("grape");
-// ll.push("apple");
+let lst = new LinkedList([5, 10]);
 
-ll.print();
+lst.print(); //5 
+console.log("tail:",lst.tail.val, "head", lst.head.val, "length",lst.length); 
+
+lst.print(); //10
+
+
+// ll.print();
