@@ -166,7 +166,7 @@ class LinkedList {
   removeAt(idx) {
     try {
       if ((idx >= this.length) || (idx < 0 )) throw Error;
-      
+      let current = this.head;
       // if delete from 1 item array
       if ((idx === 0) && (this.length === 1)) {
         this.head = null;
@@ -179,25 +179,26 @@ class LinkedList {
       }
 
       if ((idx > 0) && (idx <= this.length-1)) {
-        let current = this.head;
         let previous;
-        let next;
+        let nextNode;
         // find a current element at ind and its previous and the next one
         if (idx < this.length-1) {
           for (let i = 0; i < idx; i++) {
             previous = current;
-            next = current.next.next;
+            nextNode = current.next.next;
             current = current.next;
           }  
-        previous.next = next;          
+        previous.next = nextNode; 
         }
         // if an element is deleted from the end
-        if (idx === this.length-1) 
+        if (idx === this.length-1) {
           this.tail=previous;
-          previous.next = null; 
+          previous.next = null;           
+        }
       }
-
+      
       this.length--;
+      return current.val;
 
     } catch(e) {
       console.log("The index is invalid", e);
@@ -207,6 +208,16 @@ class LinkedList {
   /** average(): return an average of all values in the list */
 
   average() {
+    let current = this.head;
+    let sum = 0;
+    let average;
+    while (current !== null) {
+      sum += current.val;
+      console.log("Current Sum:", sum);
+      current = current.next;
+    }
+    average = sum/this.length;
+    return average
    
   }
 
@@ -226,8 +237,11 @@ module.exports = LinkedList;
 
 // let ll = new LinkedList();
 // let ll = new LinkedList([2,3,1,1,7,6,9]);
+let ll = new LinkedList([2,3,4,5]);
+ll.print();
+ll.removeAt(1);
 // ll.average();
-// ll.print();
-// console.log("head", ll.head.val, "tail:",ll.tail.val,  "length",ll.length); 
+ll.print();
+console.log("head", ll.head.val, "tail:",ll.tail.val,  "length",ll.length); 
 
 
