@@ -93,19 +93,62 @@ class LinkedList {
   /** getAt(idx): get val at idx. */
 
   getAt(idx) {
-
+    try {
+      if ((idx > this.length-1) || (idx < 0 )) throw Error;
+      let current = this.head;
+      for (let i = 0; i < idx; i++) {
+        current = current.next;
+      }
+      return current.val;
+    } catch(e) {
+      console.log("The index is invalid", e);
+    }
   }
 
   /** setAt(idx, val): set val at idx to val */
 
   setAt(idx, val) {
-
+    try {
+      if ((idx > this.length-1) || (idx < 0 )) throw Error;
+      let current = this.head;
+      for (let i = 0; i < idx; i++) {
+        current = current.next;
+      }
+      current.val = val;
+    } catch(e) {
+      console.log("The index is invalid", e);
+    }
   }
 
   /** insertAt(idx, val): add node w/val before idx. */
 
   insertAt(idx, val) {
-
+    try {
+      if ((idx > this.length) || (idx < 0 )) throw Error;
+      let newNode = new Node(val);
+      // insert at 0 index
+      if (idx === 0) {
+        newNode.next = this.head;
+        this.head = newNode;
+      }
+      // insert at index 
+      if ((idx > 0) && (idx <= this.length)) {
+        let current = this.head;
+        let previous;
+        // find the current element at ind and a previous one
+        for (let i = 0; i < idx; i++) {
+          previous = current;
+          current = current.next;
+        }
+        newNode.next = current;
+        previous.next = newNode;
+        // if an element is inserted at the end
+        if (idx === this.length) this.tail=newNode;
+      }
+      this.length++;
+    } catch(e) {
+      console.log("The index is invalid", e);
+    }
   }
 
   /** removeAt(idx): return & remove item at idx, */
@@ -136,14 +179,21 @@ module.exports = LinkedList;
 
 let ll = new LinkedList(["apple", "berry", "cherry"]);
 ll.print();
+ll.insertAt(2,"banana");
+console.log("head", ll.head.val, "tail:",ll.tail.val,  "length",ll.length); 
+ll.insertAt(1,"orange");
+console.log("head", ll.head.val, "tail:",ll.tail.val,  "length",ll.length); 
+ll.insertAt(2,"lime");
+console.log("head", ll.head.val, "tail:",ll.tail.val,  "length",ll.length); 
+ll.insertAt(6,"peach");
+console.log("head", ll.head.val, "tail:",ll.tail.val,  "length",ll.length); 
+ll.print();
 // let lst = new LinkedList([5, 10]);
 // let lst = new LinkedList();
-let removed = ll.pop();
-console.log(removed);
+
 // lst.print(); //5 
-// console.log("tail:",lst.tail.val, "head", lst.head.val, "length",lst.length); 
+// console.log("head", ll.head.val, "tail:",ll.tail.val,  "length",ll.length); 
 
 // lst.print(); //10
 
 
-ll.print();
