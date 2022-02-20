@@ -125,12 +125,20 @@ class LinkedList {
   insertAt(idx, val) {
     try {
       if ((idx > this.length) || (idx < 0 )) throw Error;
+
       let newNode = new Node(val);
-      // insert at 0 index
-      if (idx === 0) {
-        newNode.next = this.head;
+      // if insert in an empty list
+      if ((idx === 0) && (this.length === 0)) {
         this.head = newNode;
+        this.tail = newNode;
+      } else {
+        // insert at 0 index
+        if (idx === 0) {
+          newNode.next = this.head;
+          this.head = newNode;
+        }        
       }
+
       // insert at index 
       if ((idx > 0) && (idx <= this.length)) {
         let current = this.head;
@@ -145,7 +153,9 @@ class LinkedList {
         // if an element is inserted at the end
         if (idx === this.length) this.tail=newNode;
       }
+
       this.length++;
+
     } catch(e) {
       console.log("The index is invalid", e);
     }
@@ -154,13 +164,50 @@ class LinkedList {
   /** removeAt(idx): return & remove item at idx, */
 
   removeAt(idx) {
+    try {
+      if ((idx >= this.length) || (idx < 0 )) throw Error;
+      
+      // if delete from 1 item array
+      if ((idx === 0) && (this.length === 1)) {
+        this.head = null;
+        this.tail = null;
+      } else {
+        // delete at 0 index
+        if (idx === 0) {
+          this.head = this.head.next;
+        }        
+      }
 
+      if ((idx > 0) && (idx <= this.length-1)) {
+        let current = this.head;
+        let previous;
+        let next;
+        // find a current element at ind and its previous and the next one
+        if (idx < this.length-1) {
+          for (let i = 0; i < idx; i++) {
+            previous = current;
+            next = current.next.next;
+            current = current.next;
+          }  
+        previous.next = next;          
+        }
+        // if an element is deleted from the end
+        if (idx === this.length-1) 
+          this.tail=previous;
+          previous.next = null; 
+      }
+
+      this.length--;
+
+    } catch(e) {
+      console.log("The index is invalid", e);
+    }
   }
 
   /** average(): return an average of all values in the list */
 
   average() {
-    
+   
   }
 
   /** print(): traverse & console.log each item. */
@@ -177,23 +224,10 @@ class LinkedList {
 
 module.exports = LinkedList;
 
-let ll = new LinkedList(["apple", "berry", "cherry"]);
-ll.print();
-ll.insertAt(2,"banana");
-console.log("head", ll.head.val, "tail:",ll.tail.val,  "length",ll.length); 
-ll.insertAt(1,"orange");
-console.log("head", ll.head.val, "tail:",ll.tail.val,  "length",ll.length); 
-ll.insertAt(2,"lime");
-console.log("head", ll.head.val, "tail:",ll.tail.val,  "length",ll.length); 
-ll.insertAt(6,"peach");
-console.log("head", ll.head.val, "tail:",ll.tail.val,  "length",ll.length); 
-ll.print();
-// let lst = new LinkedList([5, 10]);
-// let lst = new LinkedList();
-
-// lst.print(); //5 
+// let ll = new LinkedList();
+// let ll = new LinkedList([2,3,1,1,7,6,9]);
+// ll.average();
+// ll.print();
 // console.log("head", ll.head.val, "tail:",ll.tail.val,  "length",ll.length); 
-
-// lst.print(); //10
 
 
