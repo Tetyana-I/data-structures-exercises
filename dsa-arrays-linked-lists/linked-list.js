@@ -234,13 +234,5 @@ class LinkedList {
 
 module.exports = LinkedList;
 
-// let ll = new LinkedList();
-// let ll = new LinkedList([2,3,1,1,7,6,9]);
-let ll = new LinkedList([2,3,4,5]);
-ll.print();
-ll.removeAt(1);
-// ll.average();
-ll.print();
-console.log("head", ll.head.val, "tail:",ll.tail.val,  "length",ll.length); 
 
 
