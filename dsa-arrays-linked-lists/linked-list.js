@@ -47,7 +47,7 @@ class LinkedList {
 
   pop() {
     try {
-      if (this.length === 0) throw Error;
+      if (this.length === 0) throw new Error("You are trying to delete from an empty list!");
       let removedNode = this.tail;
       if (this.length > 1) {
         let current = this.head;
@@ -65,7 +65,7 @@ class LinkedList {
       this.length--;
       return removedNode.val;
     } catch (e) {
-      console.log("The list is empty!", e);
+      console.log(e.message);
     }
 
   }
@@ -233,6 +233,5 @@ class LinkedList {
 }
 
 module.exports = LinkedList;
-
 
 
