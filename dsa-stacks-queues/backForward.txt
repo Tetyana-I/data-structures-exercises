@@ -1,0 +1,30 @@
+// Browser Back/Forward
+// Design how you could design a browser back/forward system using two stacks, 
+// so that you can visit a series of sites 
+// (Google, Yahoo, EBay, go back to Yahoo, then forward again to EBay, then onto Apple, and so on).
+
+// Write pseudo-code for this.
+
+1. class Stack (first, last, size, push(val), pop(), peek(), isEmpty())
+2. class Node (val, next) 
+3. forwardStack && backwardStack
+4. function moveForward() {
+    if (forwardStack.isEmpty()) throw Error
+    else {
+        val = forwardStack.pop();
+        backwardStack.push(val);
+        return backwardStack.peek();        
+    }
+    }
+5. function moveBackward() {
+    if (backwardStack.isEmpty()) throw Error
+    else {
+        val = backwardStack.pop();
+        forwardStack.push(val);
+        return backwardStack.peek();        
+    }
+    }
+6. function newUrl(val) {
+    backwardStack.push(val);
+    return backwardStack.peek();
+    }
