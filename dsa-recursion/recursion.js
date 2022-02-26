@@ -36,28 +36,62 @@ function isPalindrome(str, left=0, right=str.length-1, polindrom = true) {
 
 /** findIndex: return the index of val in arr (or -1 if val is not present). */
 
-function findIndex(arr, val) {
-
+function findIndex(arr, val, i=0) {
+  if (i === arr.length) return -1;
+  if (arr[i] === val) return i;
+  return findIndex(arr, val, i+1);
 }
 
 /** revString: return a copy of a string, but in reverse. */
 
-function revString(str) {
-
+function revString(str, left=0, right=str.length) {
+  if (left >= right) return str;
+  let temp;
+  temp = str[right];
+  str[right] = str[left];
+  str[left] = temp;
+  return revString(str, left+1, right-1);
 }
+
 
 /** gatherStrings: given an object, return an array of all of the string values. */
 
-function gatherStrings(obj) {
-
+function gatherStrings(obj, arr=[]) {
+  let curObj = obj;
+  for (let key of Object.keys(curObj)) {
+    if (typeof(curObj[key]) === "object") {
+      let nestedObj = curObj[key];
+      gatherStrings(nestedObj, arr);
+    } else {
+      if (typeof(curObj[key]) === "string") {
+        arr.push(curObj[key]);
+      }
+    }
+  }
+  return arr;
 }
+
 
 /** binarySearch: given a sorted array of numbers, and a value,
  * return the index of that value (or -1 if val is not present). */
 
 function binarySearch(arr, val) {
-
+  // let left = 0;
+  // let right = arr.length-1;
+  // while (left <= right) {
+  //   let middle = Math.floor((left+right)/2);  
+  //   if (arr[middle] === val) return middle;
+  //   if (arr[middle] > val) {
+  //     right = middle--;
+  //   } else {
+  //     left = middle++;
+  //   }
+  // }
+  // return -1;
 }
+
+
+
 
 module.exports = {
   product,
