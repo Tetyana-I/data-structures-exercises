@@ -44,13 +44,10 @@ function findIndex(arr, val, i=0) {
 
 /** revString: return a copy of a string, but in reverse. */
 
-function revString(str, left=0, right=str.length) {
-  if (left >= right) return str;
-  let temp;
-  temp = str[right];
-  str[right] = str[left];
-  str[left] = temp;
-  return revString(str, left+1, right-1);
+function revString(str, reverse="", i=str.length-1) {
+  if (reverse.length === str.length) return reverse;
+  reverse = reverse + str.slice(i,i+1);
+  return revString(str, reverse, i=i-1); 
 }
 
 
@@ -76,18 +73,18 @@ function gatherStrings(obj, arr=[]) {
  * return the index of that value (or -1 if val is not present). */
 
 function binarySearch(arr, val) {
-  // let left = 0;
-  // let right = arr.length-1;
-  // while (left <= right) {
-  //   let middle = Math.floor((left+right)/2);  
-  //   if (arr[middle] === val) return middle;
-  //   if (arr[middle] > val) {
-  //     right = middle--;
-  //   } else {
-  //     left = middle++;
-  //   }
-  // }
-  // return -1;
+  let left = 0;
+  let right = arr.length-1;
+  while (left <= right) {
+    let middle = Math.floor((left+right)/2);  
+    if (arr[middle] === val) return middle;
+    if (arr[middle] > val) {
+      right = middle - 1;
+    } else {
+      left = middle + 1;
+    }
+  }
+  return -1;
 }
 
 
