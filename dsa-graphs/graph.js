@@ -35,23 +35,96 @@ class Graph {
   }
 
   // this function accepts a vertex and removes it from the nodes property, it also updates any adjacency lists that include that vertex
-  removeVertex(vertex) {}
+  removeVertex(vertex) {
+    this.nodes.delete(vertex);
+    for (let neighbour of vertex.adjacent.values()) {
+      this.removeEdge(vertex, neighbour);
+    }
+  }
 
   // this function returns an array of Node values using DFS
-  depthFirstSearch(start) {}
+  depthFirstSearch(start) {
+    let toVisitStack = [start];
+    let visited = new Set();
+    let visitOrder = [];
+    while (toVisitStack.length) {
+      let current = toVisitStack.pop();
+      visited.add(current);
+      visitOrder.push(current.value);
+      for (let neighbour of current.adjacent) {
+        if (!visited.has(neighbour)) {
+          toVisitStack.push(neighbour); 
+          visited.add(neighbour);
+        }
+      }
+    } 
+    return visitOrder;
+  }
 
   // this function returns an array of Node values using BFS
-  breadthFirstSearch(start) {}
+  breadthFirstSearch(start) {
+    let toVisitQueue = [start];
+    let visited = new Set();
+    let visitOrder = [];
+    while (toVisitQueue.length) {
+      let current = toVisitQueue.shift();
+      visited.add(current);
+      visitOrder.push(current.value);
+      for (let neighbour of current.adjacent) {
+        if (!visited.has(neighbour)) {
+          toVisitQueue.push(neighbour); 
+          visited.add(neighbour);
+        }
+      }
+    } 
+    return visitOrder;
+  }
 }
 
 module.exports = {Graph, Node};
 
-let graph = new Graph()
-let a = new Node("A")
-let b = new Node("B")
-let c = new Node("C")
-graph.addVertices([a,b])
-graph.addVertex(c)
-graph.nodes.has(a) // true
-graph.nodes.has(b) // true
-graph.nodes.has(c) // true
+let graph = new Graph();
+let S = new Node("S");
+let P = new Node("P");
+let U = new Node("U");
+let X = new Node("X");
+let Q = new Node("Q");
+let Y = new Node("Y");
+let V = new Node("V");
+let R = new Node("R");
+let W = new Node("W");
+let T = new Node("T");
+
+graph.addVertices([S, P, U, X, Q, Y, V, R, W, T]);
+
+graph.addEdge(S, P);
+graph.addEdge(S, U);
+
+graph.addEdge(P, X);
+graph.addEdge(U, X);
+
+graph.addEdge(P, Q);
+graph.addEdge(U, V);
+
+graph.addEdge(X, Q);
+graph.addEdge(X, Y);
+graph.addEdge(X, V);
+
+graph.addEdge(Q, R);
+graph.addEdge(Y, R);
+
+graph.addEdge(Y, W);
+graph.addEdge(V, W);
+
+graph.addEdge(R, T);
+graph.addEdge(W, T);
+
+// var result = JSON.stringify(graph.depthFirstSearch(S));
+// var validResult =
+//   result ===
+//     JSON.stringify(["S", "U", "V", "W", "T", "R", "Q", "Y", "X", "P"]) ||
+//   result ===
+//     JSON.stringify(["S", "P", "X", "U", "V", "W", "Y", "R", "Q", "T"]);
+// console.log(validResult); //true
+
+console.log(graph.depthFirstSearch(S));
